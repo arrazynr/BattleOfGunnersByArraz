@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --red: #EF0107;
+  --red-dark: #AA0005;
+  --red-glow: #EF010744;
+  --gold: #C8A000;
+  --gold-light: #FFD700;
+  --gold-glow: #C8A00033;
+  --navy: #080810;
+  --navy-2: #0d0d1a;
+  --navy-3: #121220;
+  --card: rgba(12,12,22,0.95);
+  --border: rgba(255,255,255,0.08);
+  --text-dim: #555566;
+  --wenger-primary: #EF0107;
+  --wenger-secondary: #C8A000;
+  --arteta-primary: #3B82F6;
+  --arteta-secondary: #06B6D4;
+}
+
+body { font-family: 'Barlow', sans-serif; background: var(--navy); color: white; }
+
+/* Utility classes */
+.font-display { font-family: 'Barlow Condensed', sans-serif; }
+.font-pixel { font-family: 'Press Start 2P', monospace; }
+
+/* Glass card effect */
+.glass {
+  background: rgba(12,12,24,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+/* Shine animation */
+@keyframes shine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shine {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% auto;
+  animation: shine 3s linear infinite;
+}
+
+/* Pulse glow */
+@keyframes pulseRed {
+  0%, 100% { box-shadow: 0 0 12px var(--red-glow); }
+  50% { box-shadow: 0 0 32px #EF010788, 0 0 60px #EF010733; }
+}
+.pulse-red { animation: pulseRed 2.5s ease-in-out infinite; }
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 12px var(--gold-glow); }
+  50% { box-shadow: 0 0 32px #C8A00055, 0 0 60px #C8A00022; }
+}
+.pulse-gold { animation: pulseGold 2.5s ease-in-out infinite; }
+
+/* Score number counter */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ticker tape */
+@keyframes ticker {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100%); }
+}
+.ticker { animation: ticker 22s linear infinite; }
+
+/* Card flip */
+@keyframes flipIn {
+  from { transform: rotateY(-90deg); opacity: 0; }
+  to { transform: rotateY(0); opacity: 1; }
+}
+
+/* Scanline overlay (subtle, not heavy) */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Input focus */
+input:focus { outline: none; }
+button { cursor: pointer; }
+
+/* Noise texture overlay */
+.noise::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
